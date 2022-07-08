@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tugas Day 3</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card w-50 mx-auto">
+        <div class="card-header">
+            Tugas Day 3
+        </div>
+        <div class="card-body">
+            <form id="myForm" onsubmit="setValue(); return false">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input class="form-control" type="text" id="name"> <br>
+                    <label for="address">Address</label>
+                    <input class="form-control" type="text" id="address"> <br>
+                    <label for="phone">Phone Number</label>
+                    <input class="form-control" type="number" id="phone"><br>
+                    <label for="email">Email</label>
+                    <input class="form-control" type="text" id="email"><br>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="role" value="UI" id="ui">
+                        <label class="form-check-label" for="ui">
+                            UI Designer
+                        </label><br>
+                        <input class="form-check-input" type="checkbox" name="role" value="Backend" id="backend">
+                        <label class="form-check-label" for="backend">
+                            Backed Developer
+                        </label><br>
+                        <input class="form-check-input" type="checkbox" name="role" value="Frontend" id="frontend">
+                        <label class="form-check-label" for="frontend">
+                            Frontend Developer
+                        </label><br>
+                        <input class="form-check-input" type="checkbox" name="role" value="Data" id="database">
+                        <label class="form-check-label" for="database">
+                            Database Enginer
+                        </label><br>
+                        <input class="form-check-input" type="checkbox" name="role" value="DA" id="dataanalyst">
+                        <label class="form-check-label" for="dataanalyst">
+                            Data Analyst
+                        </label><br>
+                    </div>
+                    <input class="btn btn-primary" type="submit" value="Submit">
+                </div>
+            </form>
+        </div>
+        <table id="table" class="table table-striped  col-md-10 mx-auto">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Phone Number</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Role</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+
+    <script>
+
+        function setValue() {
+            // getbyid
+            let getTable = document.getElementById('table')
+
+            let getName = document.getElementById('name').value
+            let getAddress = document.getElementById('address').value
+            let getPhone = document.getElementById('phone').value
+            let getEmail = document.getElementById('email').value
+
+
+            // checkbox validation 
+            let arr = []
+            let checkBox = document.querySelectorAll('input[type="checkbox"]:checked')
+
+            if (checkBox.length == 0) {
+                alert('checkbox must be checked to submit')
+                return false
+            }
+
+            for (let i = 0; i < checkBox.length; i++) {
+                arr.push(checkBox[i].value)
+            }
+            console.log(arr)
+
+            // let getCheckBoxVal = arr.toString()
+            // console.log(getCheckBoxVal)
+
+
+            if (getName == '') {
+                alert('Name Required')
+            } else if (getAddress == '') {
+                alert('Address Required')
+            } else if (getPhone == '') {
+                alert('Phone Required')
+            } else if (!getPhone.match(/^(^\+62|62|^08)(\d{3,4}-?){2}\d{3,4}$/g)) {
+                alert('Phone is not valid')
+                return false
+            }
+            else if (getEmail == '') {
+                alert('Email is Required')
+            } else if (!getEmail.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g)) {
+                alert('Email invalid')
+                return false
+            } else {
+
+                let row = getTable.insertRow()
+                let insertName = row.insertCell()
+                let insertAddress = row.insertCell()
+                let insertPhone = row.insertCell()
+                let insertEmail = row.insertCell()
+                let insertRole = row.insertCell()
+
+                insertName.innerHTML = getName
+                insertAddress.innerHTML = getAddress
+                insertPhone.innerHTML = getPhone
+                insertEmail.innerHTML = getEmail
+                insertRole.innerHTML = arr
+            }
+
+            // Clear
+            document.getElementById("myForm").reset();
+
+            // let mail = `budiskomo99@gmail.com`
+            // let regex = '[a-z0-9]+@[a-z]+\.[a-z]{2,3}'
+            // let classRegex = new RegExp(regex)
+
+        }
+    </script>
+</body>
+
+</html>
